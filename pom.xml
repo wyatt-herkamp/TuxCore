@@ -71,7 +71,7 @@
         </repository>
         <repository>
             <id>kingtux-repo</id>
-            <url>https://repo.kingtux.me/storages/storage0/kingtux-repo</url>
+            <url>https://repo.kingtux.me/storages/maven/kingtux-repo</url>
         </repository>
         <repository>
             <id>placeholderapi</id>

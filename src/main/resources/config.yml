@@ -1,0 +1,8 @@
+chat:
+  format: "%vault_prefix%  %player_displayname% > {message}"
+  tagcolor:
+    color: e
+    enabled: true
+bot:
+  token: ""
+  prefix: "!"

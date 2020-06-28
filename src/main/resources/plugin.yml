@@ -4,3 +4,5 @@ main: me.kingtux.tuxcore.TuxCore
 api-version: 1.13
 authors: [KingTux]
 description: TuxCore is a basic plugin for cool crap
+depend:
+  - PlaceholderAPI

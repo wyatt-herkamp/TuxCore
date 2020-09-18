@@ -6,3 +6,4 @@ chat:
 bot:
   token: ""
   prefix: "!"
+  discord-role: "756559569874059295"

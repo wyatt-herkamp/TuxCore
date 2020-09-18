@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @DBTable
 public class MCDUser extends BasicLoggingObject {
-    @TableColumn
+    @TableColumn(name = "mc_user")
     private UUID mcUserID;
     @TableColumn
     private User user;

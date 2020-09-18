@@ -137,7 +137,13 @@
             <version>2.0.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/dev.tuxjsql/hikaricp-cp -->
+        To add a dependency on Guava using Maven, use the following:
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
         <!--Logger IMPL -->
         <dependency>
             <groupId>org.slf4j</groupId>

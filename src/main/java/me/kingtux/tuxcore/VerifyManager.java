@@ -113,7 +113,8 @@ public class VerifyManager {
     }
 
     public boolean isVerified(UUID uniqueId) {
-        return getUser(uniqueId) != null;
+        MCDUser mcdUser = getUser(uniqueId);
+        return mcdUser != null;
     }
 
 }

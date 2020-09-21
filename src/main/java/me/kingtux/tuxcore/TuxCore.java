@@ -7,6 +7,8 @@ import me.kingtux.tuxcore.commands.VerifyCommand;
 import me.kingtux.tuxcore.discord.DiscordBot;
 import me.kingtux.tuxcore.listeners.ChatListener;
 import me.kingtux.tuxorm.TOConnection;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -28,6 +30,7 @@ public final class TuxCore extends JavaPlugin {
         verifyManager = new VerifyManager(this);
         commandCore = new BukkitCommandCore(this);
         commandCore.registerCommand(new VerifyCommand(this));
+        Logger.getRootLogger().setLevel(Level.DEBUG);
     }
 
     private void loadConnection() {

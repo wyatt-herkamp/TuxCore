@@ -15,16 +15,16 @@ import java.util.Properties;
 public final class TuxCore extends JavaPlugin {
     private TOConnection commonConnection;
     private BukkitCommandCore commandCore;
-    private  DiscordBot discordBot;
-
+    private DiscordBot discordBot;
+    private VerifyManager verifyManager;
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         loadListeners();
         saveDefaultConfig();
         loadConnection();
         discordBot = new DiscordBot(this);
+        verifyManager = new VerifyManager(this);
     }
 
     private void loadConnection() {
@@ -42,7 +42,6 @@ public final class TuxCore extends JavaPlugin {
     public void onDisable() {
         if (commonConnection != null) commonConnection.close();
         if (discordBot != null) discordBot.close();
-        // Plugin shutdown logic
     }
 
     private void loadListeners() {
@@ -59,5 +58,9 @@ public final class TuxCore extends JavaPlugin {
 
     public DiscordBot getDiscordBot() {
         return discordBot;
+    }
+
+    public VerifyManager getVerifyManager() {
+        return verifyManager;
     }
 }

@@ -5,6 +5,7 @@ import me.kingtux.tuxcore.TuxCore;
 import me.kingtux.tuxcore.VerifyKey;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -45,6 +46,7 @@ public class DiscordBot extends ListenerAdapter {
         } catch (NullPointerException e) {
             tuxCore.getLogger().warning("Unable to access Discord Role Info");
         }
+        System.out.println("Invite Link: " + jda.getInviteUrl(Permission.values()));
     }
 
     public void close() {

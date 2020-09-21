@@ -6,7 +6,7 @@ import me.kingtux.tuxorm.annotations.TableColumn;
 
 @DBTable
 public class VerifyKey extends BasicLoggingObject {
-    @TableColumn
+    @TableColumn(name = "user")
     private MCDUser mcdUser;
     @TableColumn
     private String key;

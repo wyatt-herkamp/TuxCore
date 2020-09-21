@@ -4,6 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import me.kingtux.tuxorm.Dao;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -36,9 +37,6 @@ public class VerifyManager {
     public MCDUser getUser(UUID uuid) {
         try {
             MCDUser mcdUser = userCache.get(new CacheKey(uuid, 0));
-            if (mcdUser.getMcUserID() == null) {
-                userCache.invalidate(new CacheKey(uuid, 0));
-            }
             return mcdUser;
         } catch (ExecutionException e) {
             if (e.getCause() instanceof NoSuchElementException) {
@@ -77,5 +75,31 @@ public class VerifyManager {
 
     public boolean doesKeyExist(String key) {
         return verifyKeys.fetchFirst("key", key).isPresent();
+    }
+
+    public boolean isVerified(User user) {
+        return getUser(user.getIdLong()).getMcUserID() != null;
+    }
+
+    public boolean isUserVerifying(User user) {
+        return getVerifyingKey(user) != null;
+    }
+
+    public VerifyKey getVerifyingKey(User user) {
+        MCDUser user1 = getUser(user.getIdLong());
+        if (user1 == null) return null;
+        return verifyKeys.fetchFirst("user", user1).orElse(null);
+    }
+
+    public MCDUser createUser(User user) {
+        MCDUser mcdUser = new MCDUser(user);
+        mcdUser = users.create(mcdUser);
+        return mcdUser;
+    }
+
+    public VerifyKey createVerifyKey(MCDUser mcdUser) {
+        VerifyKey verifyKey = new VerifyKey(mcdUser, Utils.generateRandomString(6));
+        verifyKey = verifyKeys.create(verifyKey);
+        return verifyKey;
     }
 }

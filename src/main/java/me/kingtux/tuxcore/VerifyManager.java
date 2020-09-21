@@ -23,12 +23,16 @@ public class VerifyManager {
         userCache = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, MCDUser>() {
             @Override
             public MCDUser load(CacheKey key) throws Exception {
-                if (key.getId() != null) {
-                    return users.fetchFirst("user", key.getId()).get();
-                } else if (key.getUuid() != null) {
-                    return users.fetchFirst("mc_user", key.getUuid()).get();
-                } else {
-                    throw new IllegalArgumentException("WHY THO");
+                try {
+                    if (key.getId() != null) {
+                        return users.fetchFirst("user", key.getId()).get();
+                    } else if (key.getUuid() != null) {
+                        return users.fetchFirst("mc_user", key.getUuid()).get();
+                    } else {
+                        throw new IllegalArgumentException("WHY THO");
+                    }
+                } catch (NoSuchElementException e) {
+                    return null;
                 }
             }
         });
@@ -37,6 +41,9 @@ public class VerifyManager {
     public MCDUser getUser(UUID uuid) {
         try {
             MCDUser mcdUser = userCache.get(new CacheKey(uuid, null));
+            if (mcdUser == null) {
+                userCache.invalidate(new CacheKey(uuid, null));
+            }
             return mcdUser;
         } catch (ExecutionException e) {
             if (e.getCause() instanceof NoSuchElementException) {
@@ -49,7 +56,7 @@ public class VerifyManager {
     public MCDUser getUser(User user) {
         try {
             MCDUser mcdUser = userCache.get(new CacheKey(null, user));
-            if (mcdUser.getMcUserID() == null) {
+            if (mcdUser == null || mcdUser.getMcUserID() == null) {
                 userCache.invalidate(new CacheKey(null, user));
             }
             return mcdUser;

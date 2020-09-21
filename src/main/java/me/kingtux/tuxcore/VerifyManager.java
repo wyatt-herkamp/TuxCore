@@ -102,4 +102,9 @@ public class VerifyManager {
         verifyKey = verifyKeys.create(verifyKey);
         return verifyKey;
     }
+
+    public boolean isVerified(UUID uniqueId) {
+        return getUser(uniqueId) != null;
+    }
+
 }

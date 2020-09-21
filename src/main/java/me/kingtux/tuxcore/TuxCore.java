@@ -3,6 +3,7 @@ package me.kingtux.tuxcore;
 import dev.nitrocommand.bukkit.BukkitCommandCore;
 import dev.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.lava.PropertiesUtils;
+import me.kingtux.tuxcore.commands.VerifyCommand;
 import me.kingtux.tuxcore.discord.DiscordBot;
 import me.kingtux.tuxcore.listeners.ChatListener;
 import me.kingtux.tuxorm.TOConnection;
@@ -25,6 +26,8 @@ public final class TuxCore extends JavaPlugin {
         loadConnection();
         discordBot = new DiscordBot(this);
         verifyManager = new VerifyManager(this);
+        commandCore = new BukkitCommandCore(this);
+        commandCore.registerCommand(new VerifyCommand(this));
     }
 
     private void loadConnection() {

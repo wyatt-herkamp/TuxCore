@@ -38,7 +38,7 @@ public class DiscordBot extends ListenerAdapter {
 
     private void loadBot() {
         try {
-            jda = new JDABuilder(tuxCore.getConfig().getString("discord.token")).addEventListeners(this).build();
+            jda = new JDABuilder(tuxCore.getConfig().getString("bot.token")).addEventListeners(this).build();
         } catch (LoginException e) {
             tuxCore.getSLF4JLogger().error("Unable to load Discord", e);
         }

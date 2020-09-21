@@ -112,11 +112,7 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>me.kingtux</groupId>
-            <artifactId>lava</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>dev.nitrocommand</groupId>
             <artifactId>bukkit</artifactId>
@@ -136,9 +132,6 @@
             <artifactId>sqlite</artifactId>
             <version>2.0.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/dev.tuxjsql/hikaricp-cp -->
-        To add a dependency on Guava using Maven, use the following:
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

@@ -33,7 +33,7 @@ public final class TuxCore extends JavaPlugin {
     private void loadConnection() {
         saveResource("db.properties", false);
         try {
-            Properties properties = PropertiesUtils.loadPropertiesFromFile(new File("db.properties"));
+            Properties properties = PropertiesUtils.loadPropertiesFromFile(new File(getDataFolder(),"db.properties"));
             commonConnection = new TOConnection(TuxJSQLBuilder.create(properties));
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,14 +1,16 @@
 package me.kingtux.tuxcore;
 
+import net.dv8tion.jda.api.entities.User;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class CacheKey {
 
     private final UUID uuid;
-    private final long id;
+    private final User id;
 
-    public CacheKey(UUID uuid, long id) {
+    public CacheKey(UUID uuid, User id) {
         this.uuid = uuid;
         this.id = id;
     }
@@ -17,7 +19,7 @@ public class CacheKey {
         return uuid;
     }
 
-    public long getId() {
+    public User getId() {
         return id;
     }
 
@@ -26,7 +28,7 @@ public class CacheKey {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CacheKey cacheKey = (CacheKey) o;
-        return id == cacheKey.id ||
+        return Objects.equals(id, cacheKey.getId()) ||
                 Objects.equals(uuid, cacheKey.uuid);
     }
 

@@ -23,7 +23,7 @@ public class VerifyManager {
         userCache = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, MCDUser>() {
             @Override
             public MCDUser load(CacheKey key) throws Exception {
-                if (key.getId() != 0) {
+                if (key.getId() != null) {
                     return users.fetchFirst("user", key.getId()).get();
                 } else if (key.getUuid() != null) {
                     return users.fetchFirst("mc_user", key.getUuid()).get();
@@ -36,7 +36,7 @@ public class VerifyManager {
 
     public MCDUser getUser(UUID uuid) {
         try {
-            MCDUser mcdUser = userCache.get(new CacheKey(uuid, 0));
+            MCDUser mcdUser = userCache.get(new CacheKey(uuid, null));
             return mcdUser;
         } catch (ExecutionException e) {
             if (e.getCause() instanceof NoSuchElementException) {
@@ -46,11 +46,11 @@ public class VerifyManager {
         return null;
     }
 
-    public MCDUser getUser(long id) {
+    public MCDUser getUser(User user) {
         try {
-            MCDUser mcdUser = userCache.get(new CacheKey(null, id));
+            MCDUser mcdUser = userCache.get(new CacheKey(null, user));
             if (mcdUser.getMcUserID() == null) {
-                userCache.invalidate(new CacheKey(null, id));
+                userCache.invalidate(new CacheKey(null, user));
             }
             return mcdUser;
         } catch (ExecutionException e) {
@@ -71,6 +71,7 @@ public class VerifyManager {
         verifyKeys.delete(verifyKey);
         users.update(mcdUser);
 
+        tuxCore.getDiscordBot().getGuild().addRoleToMember(tuxCore.getDiscordBot().getGuild().getMember(mcdUser.getUser()), tuxCore.getDiscordBot().getRole()).queue();
     }
 
     public boolean doesKeyExist(String key) {
@@ -78,7 +79,7 @@ public class VerifyManager {
     }
 
     public boolean isVerified(User user) {
-        return getUser(user.getIdLong()).getMcUserID() != null;
+        return getUser(user).getMcUserID() != null;
     }
 
     public boolean isUserVerifying(User user) {
@@ -86,7 +87,7 @@ public class VerifyManager {
     }
 
     public VerifyKey getVerifyingKey(User user) {
-        MCDUser user1 = getUser(user.getIdLong());
+        MCDUser user1 = getUser(user);
         if (user1 == null) return null;
         return verifyKeys.fetchFirst("user", user1).orElse(null);
     }

@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 public class VerifyManager {
     private final TuxCore tuxCore;
@@ -45,7 +44,7 @@ public class VerifyManager {
                 userCache.invalidate(new CacheKey(uuid, null));
             }
             return mcdUser;
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             if (e.getCause() instanceof NoSuchElementException) {
                 return null;
             }
@@ -60,7 +59,7 @@ public class VerifyManager {
                 userCache.invalidate(new CacheKey(null, user));
             }
             return mcdUser;
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             if (e.getCause() instanceof NoSuchElementException) {
                 return null;
             }
@@ -86,7 +85,9 @@ public class VerifyManager {
     }
 
     public boolean isVerified(User user) {
-        return getUser(user).getMcUserID() != null;
+        MCDUser mcdUser = getUser(user);
+        if (mcdUser == null) return false;
+        return mcdUser.getMcUserID() != null;
     }
 
     public boolean isUserVerifying(User user) {

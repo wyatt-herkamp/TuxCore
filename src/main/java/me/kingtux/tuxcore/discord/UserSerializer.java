@@ -7,7 +7,7 @@ import me.kingtux.tuxorm.serializers.SingleSecondarySerializer;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 
-public class UserSerializer implements SingleSecondarySerializer<User, String> {
+public class UserSerializer implements SingleSecondarySerializer<User, Long> {
     private JDA jda;
     private TOConnection toConnection;
 
@@ -17,17 +17,17 @@ public class UserSerializer implements SingleSecondarySerializer<User, String> {
     }
 
     @Override
-    public String getSimplifiedValue(User o) {
-        return o.getId();
+    public Long getSimplifiedValue(User o) {
+        return o.getIdLong();
     }
 
     @Override
-    public User buildFromSimplifiedValue(String value) {
+    public User buildFromSimplifiedValue(Long value) {
         return jda.getUserById(value);
     }
 
     @Override
     public ColumnBuilder createColumn(String name) {
-        return toConnection.getBuilder().createColumn().setDataType(BasicDataTypes.TEXT).name(name);
+        return toConnection.getBuilder().createColumn().setDataType(BasicDataTypes.INTEGER).name(name);
     }
 }

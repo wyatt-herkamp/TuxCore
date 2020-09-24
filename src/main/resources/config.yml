@@ -7,3 +7,4 @@ bot:
   token: ""
   prefix: "!"
   discord-role: "756559569874059295"
+  chat-channel: "756570930674794526"

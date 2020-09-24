@@ -12,10 +12,10 @@ public class MCDUser extends BasicLoggingObject {
     @TableColumn(name = "mc_user")
     private UUID mcUserID;
     @TableColumn
-    private User user;
+    private User discordUser;
 
     public MCDUser(User user) {
-        this.user = user;
+        this.discordUser = user;
     }
 
     public MCDUser() {
@@ -31,10 +31,10 @@ public class MCDUser extends BasicLoggingObject {
     }
 
     public User getUser() {
-        return user;
+        return discordUser;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.discordUser = user;
     }
 }

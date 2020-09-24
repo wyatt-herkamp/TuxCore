@@ -1,14 +1,18 @@
 package me.kingtux.tuxcore.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.kingtux.MessageBuilder;
+import me.kingtux.tuxcore.MCDUser;
 import me.kingtux.tuxcore.TuxCore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Sound;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.Collection;
 
 public class ChatListener implements Listener {
     private TuxCore kingtuxskyblock;
@@ -20,8 +24,21 @@ public class ChatListener implements Listener {
     @EventHandler
     public void chat(AsyncPlayerChatEvent e) {
         String message = e.getMessage();
-        if (kingtuxskyblock.getConfig().getBoolean("chat.tagcolor.enabled")) {
-            String color = kingtuxskyblock.getConfig().getString("chat.tagcolor.color");
+        sendMessage(message, e.getPlayer(), kingtuxskyblock, e.getRecipients());
+        e.setCancelled(true);
+        if (kingtuxskyblock.getVerifyManager().getUser(e.getPlayer().getUniqueId()) != null) {
+            MCDUser mcdUser = kingtuxskyblock.getVerifyManager().getUser(e.getPlayer().getUniqueId());
+            MessageBuilder messageBuilder = new MessageBuilder(ChatColor.stripColor(message));
+            messageBuilder.footer();
+            messageBuilder.setTitle(e.getPlayer().getDisplayName(), "https://mc-heads.net/avatar/" + e.getPlayer().getUniqueId().toString());
+            messageBuilder.addField("Discord", mcdUser.getUser().getName(), false);
+            messageBuilder.queue(kingtuxskyblock.getDiscordBot().getChannel());
+        }
+    }
+
+    public static void sendMessage(String message, OfflinePlayer player, TuxCore tuxCore, Collection<? extends Player> players) {
+        if (tuxCore.getConfig().getBoolean("chat.tagcolor.enabled")) {
+            String color = tuxCore.getConfig().getString("chat.tagcolor.color");
 
             for (String string : message.split(" ")) {
 
@@ -30,15 +47,16 @@ public class ChatListener implements Listener {
                 }
             }
         }
-        if (e.getPlayer().hasPermission("chat.color")) {
-            message = ChatColor.translateAlternateColorCodes('&', message);
+        if (player.isOnline()) {
+            if (player.getPlayer().hasPermission("chat.color")) {
+                message = ChatColor.translateAlternateColorCodes('&', message);
+            }
         }
-        e.setCancelled(true);
-        String fullMessage = kingtuxskyblock.getConfig().getString("chat.format");
+        String fullMessage = tuxCore.getConfig().getString("chat.format");
         fullMessage = fullMessage.replace("{message}", message);
-        fullMessage = PlaceholderAPI.setPlaceholders(e.getPlayer(), fullMessage);
+        fullMessage = PlaceholderAPI.setPlaceholders(player, fullMessage);
         String finalFullMessage = fullMessage;
-        e.getRecipients().forEach(player -> player.sendMessage(finalFullMessage));
+        players.forEach(p -> p.sendMessage(finalFullMessage));
 
     }
 }

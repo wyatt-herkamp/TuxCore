@@ -24,7 +24,7 @@ public class VerifyManager {
             public MCDUser load(CacheKey key) throws Exception {
                 try {
                     if (key.getId() != null) {
-                        return users.fetchFirst("user", key.getId()).get();
+                        return users.fetchFirst("discorduser", key.getId()).get();
                     } else if (key.getUuid() != null) {
                         return users.fetchFirst("mc_user", key.getUuid()).get();
                     } else {
@@ -72,8 +72,12 @@ public class VerifyManager {
             throw new IllegalArgumentException("BAD BOI");
         }
         VerifyKey verifyKey = verifyKeys.fetchFirst("key", key).get();
-        MCDUser mcdUser = verifyKey.getMcdUser();
+        System.out.println("verifyKey.getId() = " + verifyKey.getId());
+        MCDUser mcdUser = users.findByID(verifyKey.getId()).get();
         mcdUser.setMcUserID(uuid);
+        if(mcdUser.getUser()==null){
+            throw new IllegalArgumentException("WAT");
+        }
         verifyKeys.delete(verifyKey);
         users.update(mcdUser);
 

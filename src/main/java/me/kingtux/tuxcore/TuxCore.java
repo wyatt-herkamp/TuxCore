@@ -40,6 +40,8 @@ public final class TuxCore extends JavaPlugin {
             commonConnection = new TOConnection(TuxJSQLBuilder.create(properties));
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -21,11 +21,14 @@ public final class TuxCore extends JavaPlugin {
     private DiscordBot discordBot;
     private VerifyManager verifyManager;
 
+    private TCUserManager userManager;
+
     @Override
     public void onEnable() {
         loadListeners();
         saveDefaultConfig();
         loadConnection();
+        userManager = new TCUserManager(this);
         discordBot = new DiscordBot(this);
         verifyManager = new VerifyManager(this);
         commandCore = new BukkitCommandCore(this);
@@ -36,7 +39,7 @@ public final class TuxCore extends JavaPlugin {
     private void loadConnection() {
         saveResource("db.properties", false);
         try {
-            Properties properties = PropertiesUtils.loadPropertiesFromFile(new File(getDataFolder(),"db.properties"));
+            Properties properties = PropertiesUtils.loadPropertiesFromFile(new File(getDataFolder(), "db.properties"));
             commonConnection = new TOConnection(TuxJSQLBuilder.create(properties));
         } catch (IOException e) {
             e.printStackTrace();

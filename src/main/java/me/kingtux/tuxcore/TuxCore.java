@@ -2,6 +2,8 @@ package me.kingtux.tuxcore;
 
 import dev.nitrocommand.bukkit.BukkitCommandCore;
 import dev.tuxjsql.core.TuxJSQLBuilder;
+import me.bristermitten.pdm.PDMBuilder;
+import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
 import me.kingtux.tuxcore.commands.VerifyCommand;
 import me.kingtux.tuxcore.discord.DiscordBot;
@@ -25,15 +27,18 @@ public final class TuxCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        loadListeners();
-        saveDefaultConfig();
-        loadConnection();
-        userManager = new TCUserManager(this);
-        discordBot = new DiscordBot(this);
-        verifyManager = new VerifyManager(this);
-        commandCore = new BukkitCommandCore(this);
-        commandCore.registerCommand(new VerifyCommand(this));
-        Logger.getRootLogger().setLevel(Level.DEBUG);
+        PluginDependencyManager dependencyManager = new PDMBuilder(this).build();
+        dependencyManager.loadAllDependencies().thenRun(() -> {
+            loadListeners();
+            saveDefaultConfig();
+            loadConnection();
+            userManager = new TCUserManager(this);
+            verifyManager = new VerifyManager(this);
+            commandCore = new BukkitCommandCore(this);
+            commandCore.registerCommand(new VerifyCommand(this));
+            Logger.getRootLogger().setLevel(Level.DEBUG);
+
+        });
     }
 
     private void loadConnection() {

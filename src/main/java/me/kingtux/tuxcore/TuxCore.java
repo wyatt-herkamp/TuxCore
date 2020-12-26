@@ -1,12 +1,9 @@
 package me.kingtux.tuxcore;
 
-import dev.nitrocommand.bukkit.BukkitCommandCore;
 import dev.tuxjsql.core.TuxJSQLBuilder;
 import me.bristermitten.pdm.PDMBuilder;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
-import me.kingtux.tuxcore.commands.VerifyCommand;
-import me.kingtux.tuxcore.discord.DiscordBot;
 import me.kingtux.tuxcore.listeners.ChatListener;
 import me.kingtux.tuxorm.TOConnection;
 import org.apache.log4j.Level;
@@ -19,11 +16,6 @@ import java.util.Properties;
 
 public final class TuxCore extends JavaPlugin {
     private TOConnection commonConnection;
-    private BukkitCommandCore commandCore;
-    private DiscordBot discordBot;
-    private VerifyManager verifyManager;
-
-    private TCUserManager userManager;
 
     @Override
     public void onEnable() {
@@ -32,10 +24,6 @@ public final class TuxCore extends JavaPlugin {
             loadListeners();
             saveDefaultConfig();
             loadConnection();
-            userManager = new TCUserManager(this);
-            verifyManager = new VerifyManager(this);
-            commandCore = new BukkitCommandCore(this);
-            commandCore.registerCommand(new VerifyCommand(this));
             Logger.getRootLogger().setLevel(Level.DEBUG);
 
         });
@@ -57,7 +45,6 @@ public final class TuxCore extends JavaPlugin {
     @Override
     public void onDisable() {
         if (commonConnection != null) commonConnection.close();
-        if (discordBot != null) discordBot.close();
     }
 
     private void loadListeners() {
@@ -68,15 +55,4 @@ public final class TuxCore extends JavaPlugin {
         return commonConnection;
     }
 
-    public BukkitCommandCore getCommandCore() {
-        return commandCore;
-    }
-
-    public DiscordBot getDiscordBot() {
-        return discordBot;
-    }
-
-    public VerifyManager getVerifyManager() {
-        return verifyManager;
-    }
 }

@@ -1,8 +1,7 @@
 package me.kingtux.tuxcore.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.kingtux.MessageBuilder;
-import me.kingtux.tuxcore.MCDUser;
+
 import me.kingtux.tuxcore.TuxCore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,14 +25,6 @@ public class ChatListener implements Listener {
         String message = e.getMessage();
         sendMessage(message, e.getPlayer(), kingtuxskyblock, e.getRecipients());
         e.setCancelled(true);
-        if (kingtuxskyblock.getVerifyManager().getUser(e.getPlayer().getUniqueId()) != null) {
-            MCDUser mcdUser = kingtuxskyblock.getVerifyManager().getUser(e.getPlayer().getUniqueId());
-            MessageBuilder messageBuilder = new MessageBuilder(ChatColor.stripColor(message));
-            messageBuilder.footer();
-            messageBuilder.setTitle(e.getPlayer().getDisplayName(), "https://mc-heads.net/avatar/" + e.getPlayer().getUniqueId().toString());
-            messageBuilder.addField("Discord", mcdUser.getUser().getName(), false);
-            messageBuilder.queue(kingtuxskyblock.getDiscordBot().getChannel());
-        }
     }
 
     public static void sendMessage(String message, OfflinePlayer player, TuxCore tuxCore, Collection<? extends Player> players) {

@@ -56,7 +56,7 @@ dependencies {
 group = 'me.kingtux'
 version = '1.0-SNAPSHOT'
 description = 'TuxCore'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 publishing {
     publications {

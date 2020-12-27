@@ -1,17 +1,16 @@
 package me.kingtux.tuxcore;
 
-import dev.tuxjsql.core.TuxJSQLBuilder;
 import me.bristermitten.pdm.PDMBuilder;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
 import me.kingtux.tuxcore.listeners.ChatListener;
+import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.tuxorm.TOConnection;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 public final class TuxCore extends JavaPlugin {
@@ -34,8 +33,6 @@ public final class TuxCore extends JavaPlugin {
         try {
             Properties properties = PropertiesUtils.loadPropertiesFromFile(new File(getDataFolder(), "db.properties"));
             commonConnection = new TOConnection(TuxJSQLBuilder.create(properties));
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

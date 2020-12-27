@@ -5,7 +5,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "me.bristermitten.pdm" version "0.0.28" //Replace with the latest version
+    id "me.bristermitten.pdm" version "0.0.29" //Replace with the latest version
 }
 
 repositories {

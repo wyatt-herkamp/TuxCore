@@ -1,6 +1,6 @@
 package me.kingtux.tuxcore;
 
-import me.bristermitten.pdm.PDMBuilder;
+import dev.nitrocommand.bukkit.BukkitCommandCore;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
 import me.kingtux.tuxcore.listeners.ChatListener;
@@ -15,17 +15,22 @@ import java.util.Properties;
 
 public final class TuxCore extends JavaPlugin {
     private TOConnection commonConnection;
+    private BukkitCommandCore commandCore;
 
     @Override
     public void onEnable() {
-        PluginDependencyManager dependencyManager = new PDMBuilder(this).build();
+        PluginDependencyManager dependencyManager = PluginDependencyManager.of(this);
         dependencyManager.loadAllDependencies().thenRun(() -> {
             loadListeners();
             saveDefaultConfig();
             loadConnection();
             Logger.getRootLogger().setLevel(Level.DEBUG);
-
+            loadCommands();
         });
+    }
+
+    private void loadCommands() {
+        commandCore = new BukkitCommandCore(this);
     }
 
     private void loadConnection() {

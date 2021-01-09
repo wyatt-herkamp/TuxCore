@@ -3,6 +3,7 @@ package me.kingtux.tuxcore;
 import dev.nitrocommand.bukkit.BukkitCommandCore;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
+import me.kingtux.tuxcore.commands.TuxAdmin;
 import me.kingtux.tuxcore.discord.TuxCoreDiscord;
 import me.kingtux.tuxcore.listeners.ChatListener;
 import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
@@ -44,6 +45,7 @@ public final class TuxCore extends JavaPlugin {
 
     private void loadCommands() {
         commandCore = new BukkitCommandCore(this);
+        commandCore.registerCommand(new TuxAdmin(this));
     }
 
     private void loadConnection() {

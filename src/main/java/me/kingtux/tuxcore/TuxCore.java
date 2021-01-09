@@ -3,6 +3,7 @@ package me.kingtux.tuxcore;
 import dev.nitrocommand.bukkit.BukkitCommandCore;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.kingtux.lava.PropertiesUtils;
+import me.kingtux.tuxcore.discord.TuxCoreDiscord;
 import me.kingtux.tuxcore.listeners.ChatListener;
 import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.tuxorm.TOConnection;
@@ -10,12 +11,14 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.util.Properties;
 
 public final class TuxCore extends JavaPlugin {
     private TOConnection commonConnection;
     private BukkitCommandCore commandCore;
+    private TuxCoreDiscord tuxCoreDiscord;
 
     @Override
     public void onEnable() {
@@ -26,8 +29,18 @@ public final class TuxCore extends JavaPlugin {
             loadConnection();
             Logger.getRootLogger().setLevel(Level.DEBUG);
             loadCommands();
+            loadDiscord();
         });
     }
+
+    private void loadDiscord() {
+        try {
+            tuxCoreDiscord = new TuxCoreDiscord(this);
+        } catch (LoginException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void loadCommands() {
         commandCore = new BukkitCommandCore(this);
@@ -43,6 +56,9 @@ public final class TuxCore extends JavaPlugin {
         }
     }
 
+    public TuxCoreDiscord getTuxCoreDiscord() {
+        return tuxCoreDiscord;
+    }
 
     @Override
     public void onDisable() {

@@ -10,20 +10,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
+import static me.kingtux.tuxcore.TuxCorePermission.*;
 import java.util.Collection;
 
 public class ChatListener implements Listener {
-    private TuxCore kingtuxskyblock;
+    private TuxCore tuxCore;
 
-    public ChatListener(TuxCore kingtuxskyblock) {
-        this.kingtuxskyblock = kingtuxskyblock;
+    public ChatListener(TuxCore tuxCore) {
+        this.tuxCore = tuxCore;
     }
 
     @EventHandler
     public void chat(AsyncPlayerChatEvent e) {
         String message = e.getMessage();
-        sendMessage(message, e.getPlayer(), kingtuxskyblock, e.getRecipients());
+        sendMessage(message, e.getPlayer(), tuxCore, e.getRecipients());
         e.setCancelled(true);
     }
 
@@ -39,7 +39,7 @@ public class ChatListener implements Listener {
             }
         }
         if (player.isOnline()) {
-            if (player.getPlayer().hasPermission("chat.color")) {
+            if (player.getPlayer().hasPermission(createPermission(PermLevel.USER,"chat.color"))) {
                 message = ChatColor.translateAlternateColorCodes('&', message);
             }
         }

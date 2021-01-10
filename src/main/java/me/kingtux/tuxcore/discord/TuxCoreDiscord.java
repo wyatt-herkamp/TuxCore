@@ -4,6 +4,7 @@ import dev.nitrocommand.jda4.JDA4CommandCore;
 import me.kingtux.tuxcore.TuxCore;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import javax.security.auth.login.LoginException;
@@ -12,10 +13,19 @@ public class TuxCoreDiscord {
     private JDA jda;
     private JDA4CommandCore commandCore;
     private final TuxCore tuxCore;
+    private int serverCountRunnableID;
+    private ServerCountUpdater runnable;
 
     public TuxCoreDiscord(TuxCore tuxCore) throws LoginException {
         this.tuxCore = tuxCore;
         open();
+        runnable = new ServerCountUpdater(tuxCore);
+        //Every 5 minutes update
+        serverCountRunnableID = Bukkit.getScheduler().runTaskTimerAsynchronously(tuxCore, runnable, 0, 6000).getTaskId();
+    }
+
+    public TuxCore getTuxCore() {
+        return tuxCore;
     }
 
     public void reset() throws LoginException {
@@ -34,5 +44,13 @@ public class TuxCoreDiscord {
         jda.shutdown();
         jda = null;
         commandCore = null;
+    }
+
+    public ServerCountUpdater getRunnable() {
+        return runnable;
+    }
+
+    public JDA getJda() {
+        return jda;
     }
 }

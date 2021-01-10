@@ -2,11 +2,12 @@ package me.kingtux.tuxcore;
 
 import dev.nitrocommand.bukkit.BukkitCommandCore;
 import me.bristermitten.pdm.PluginDependencyManager;
+import me.kingtux.enumconfig.BukkitYamlHandler;
+import me.kingtux.enumconfig.EnumConfigLoader;
 import me.kingtux.lava.PropertiesUtils;
 import me.kingtux.tuxcore.commands.TuxAdmin;
 import me.kingtux.tuxcore.discord.TuxCoreDiscord;
 import me.kingtux.tuxcore.listeners.ChatListener;
-import me.kingtux.tuxcore.settings.Setting;
 import me.kingtux.tuxcore.settings.SettingManager;
 import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.tuxorm.TOConnection;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
+import java.util.Map;
 import java.util.Properties;
 
 public final class TuxCore extends JavaPlugin {
@@ -35,7 +37,14 @@ public final class TuxCore extends JavaPlugin {
             loadCommands();
             loadDiscord();
             loadSetting();
+            loadLang();
         });
+    }
+
+    public void loadLang() {
+        BukkitYamlHandler yamlHandler = new BukkitYamlHandler(new File(getDataFolder(), "mc.locale.yml"));
+        EnumConfigLoader.loadLang(yamlHandler, MCLocale.class, true);
+
     }
 
     private void loadSetting() {
@@ -53,6 +62,8 @@ public final class TuxCore extends JavaPlugin {
 
     private void loadCommands() {
         commandCore = new BukkitCommandCore(this);
+        commandCore.setMissingPermissionHandler((bukkitController, permission) -> bukkitController.getCommandSender().sendMessage(MCLocale.MISSING_PERMISSION.colorAndSubstitute(Map.of("permission", permission))));
+        commandCore.setMustBeAPlayerHandler(bukkitController -> bukkitController.getCommandSender().sendMessage(MCLocale.MUST_BE_PLAYER.color()));
         commandCore.registerCommand(new TuxAdmin(this));
     }
 

@@ -1,11 +1,14 @@
 package me.kingtux.tuxcore;
 
+import me.kingtux.enumconfig.BukkitYamlHandler;
 import me.kingtux.enumconfig.EnumConfig;
+import me.kingtux.enumconfig.EnumConfigLoader;
 import me.kingtux.enumconfig.annotations.ConfigEntry;
 import me.kingtux.enumconfig.annotations.ConfigValue;
 import org.apache.commons.text.StringSubstitutor;
 import org.bukkit.ChatColor;
 
+import java.io.File;
 import java.util.Map;
 
 //https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/StringSubstitutor.html
@@ -34,6 +37,11 @@ public enum MCLocale implements EnumConfig {
 
     MCLocale(String value) {
         this.value = value;
+    }
+
+    public static void loadLang(TuxCore tuxCore) {
+        BukkitYamlHandler yamlHandler = new BukkitYamlHandler(new File(tuxCore.getDataFolder(), "mc.locale.yml"));
+        EnumConfigLoader.loadLang(yamlHandler, MCLocale.class, true);
     }
 
     public String getValue() {

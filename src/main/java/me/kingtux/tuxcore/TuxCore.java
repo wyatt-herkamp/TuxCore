@@ -42,9 +42,7 @@ public final class TuxCore extends JavaPlugin {
     }
 
     public void loadLang() {
-        BukkitYamlHandler yamlHandler = new BukkitYamlHandler(new File(getDataFolder(), "mc.locale.yml"));
-        EnumConfigLoader.loadLang(yamlHandler, MCLocale.class, true);
-
+        MCLocale.loadLang(this);
     }
 
     private void loadSetting() {

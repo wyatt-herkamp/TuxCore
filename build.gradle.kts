@@ -105,3 +105,6 @@ tasks {
         dependsOn(project.tasks.getByName("pdm"));
     }
 }
+tasks.processResources {
+    expand("version" to project.version)
+}

@@ -9,15 +9,18 @@ import java.util.Optional;
 public class SettingManager {
     private TuxCore tuxCore;
     private Dao<Setting, Long> settingDao;
+
     public SettingManager(TuxCore tuxCore) {
         this.tuxCore = tuxCore;
+        tuxCore.getCommonConnection().registerClass(Setting.class);
         settingDao = tuxCore.getCommonConnection().createDao(Setting.class);
     }
 
-    public @NotNull Optional<Setting> getSetting(Settings settings){
+    public @NotNull Optional<Setting> getSetting(Settings settings) {
         return settingDao.fetchFirst("key", settings);
     }
-    public void setSetting(Setting setting){
+
+    public void setSetting(Setting setting) {
         settingDao.updateOrCreate(setting);
     }
 

@@ -2,6 +2,8 @@ package me.kingtux.tuxcore.discord;
 
 import dev.nitrocommand.jda4.JDA4CommandCore;
 import me.kingtux.tuxcore.TuxCore;
+import me.kingtux.tuxcore.discord.commands.SettingCommand;
+import me.kingtux.tuxcore.discord.commands.TuxAdmin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.bukkit.Bukkit;
@@ -37,6 +39,13 @@ public class TuxCoreDiscord {
         ConfigurationSection bot = tuxCore.getConfig().getConfigurationSection("bot");
         jda = new JDABuilder(bot.getString("token")).addEventListeners(this).build();
         commandCore = new JDA4CommandCore(jda, bot.getString("prefix"));
+        loadCommands();
+    }
+
+    private void loadCommands() {
+        commandCore.registerCommand(new SettingCommand(tuxCore));
+        commandCore.registerCommand(new TuxAdmin(tuxCore));
+
     }
 
     public void close() {

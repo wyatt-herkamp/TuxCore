@@ -6,6 +6,8 @@ import me.kingtux.lava.PropertiesUtils;
 import me.kingtux.tuxcore.commands.TuxAdmin;
 import me.kingtux.tuxcore.discord.TuxCoreDiscord;
 import me.kingtux.tuxcore.listeners.ChatListener;
+import me.kingtux.tuxcore.settings.Setting;
+import me.kingtux.tuxcore.settings.SettingManager;
 import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.tuxorm.TOConnection;
 import org.apache.log4j.Level;
@@ -20,6 +22,7 @@ public final class TuxCore extends JavaPlugin {
     private TOConnection commonConnection;
     private BukkitCommandCore commandCore;
     private TuxCoreDiscord tuxCoreDiscord;
+    private SettingManager settingManager;
 
     @Override
     public void onEnable() {
@@ -31,7 +34,12 @@ public final class TuxCore extends JavaPlugin {
             Logger.getRootLogger().setLevel(Level.DEBUG);
             loadCommands();
             loadDiscord();
+            loadSetting();
         });
+    }
+
+    private void loadSetting() {
+        settingManager = new SettingManager(this);
     }
 
     private void loadDiscord() {
@@ -75,4 +83,7 @@ public final class TuxCore extends JavaPlugin {
         return commonConnection;
     }
 
+    public SettingManager getSettingManager() {
+        return settingManager;
+    }
 }

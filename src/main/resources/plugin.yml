@@ -1,5 +1,5 @@
 name: TuxCore
-version: ${project.version}
+version: ${version}
 main: me.kingtux.tuxcore.TuxCore
 api-version: 1.13
 authors: [KingTux]

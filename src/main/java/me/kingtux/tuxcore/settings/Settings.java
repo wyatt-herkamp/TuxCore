@@ -6,6 +6,7 @@ import me.kingtux.tuxcore.discord.DiscordSettingChecker;
 public enum Settings {
     DISCORD_SERVER_COUNT_CHANNEL(DiscordSettingChecker.DISCORD_SETTING_CHECKER),
     DISCORD_MINECRAFT_CHAT_CHANNEL(DiscordSettingChecker.DISCORD_SETTING_CHECKER),
+    DISCORD_ADMIN_CHANNEL(DiscordSettingChecker.DISCORD_SETTING_CHECKER),
     ;
 
 

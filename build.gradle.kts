@@ -5,7 +5,7 @@
 plugins {
     id("java")
     id("maven-publish")
-    id("me.bristermitten.pdm") version "0.0.30" //Replace with the latest version
+    id("com.github.johnrengelman.shadow") version "6.1.0"
     `java-library`
     `maven-publish`
     signing
@@ -41,18 +41,17 @@ repositories {
 }
 
 dependencies {
-    pdm("me.kingtux:tuxorm:1.5-SNAPSHOT")
-    pdm("net.dv8tion:JDA:4.1.1_108")
-    pdm("dev.nitrocommand:core:1.0-SNAPSHOT")
-    pdm("dev.nitrocommand:jda4:1.0-SNAPSHOT")
-    pdm("dev.nitrocommand:bukkit:1.0-SNAPSHOT")
-    pdm("me.kingtux:tuxjsql:2.2.0-SNAPSHOT")
-    pdm("me.kingtux.tuxjsql:sqlite:2.2.0-SNAPSHOT")
-    pdm("com.google.guava:guava:29.0-jre")
-    pdm("org.slf4j:slf4j-log4j12:1.7.5")
-    pdm("log4j:apache-log4j-extras:1.2.17")
-    pdm("com.jcabi:jcabi-log:0.17.3")
-    pdm(group = "me.kingtux", name = "enumconfig", version = "1.0")
+    implementation("me.kingtux:tuxorm:1.5-SNAPSHOT")
+    implementation("net.dv8tion:JDA:4.2.0_227")
+    implementation("dev.nitrocommand:core:1.0-SNAPSHOT")
+    implementation("dev.nitrocommand:jda4:1.0-SNAPSHOT")
+    implementation("dev.nitrocommand:bukkit:1.0-SNAPSHOT")
+    implementation("me.kingtux:tuxjsql:2.2.0-SNAPSHOT")
+    implementation("me.kingtux.tuxjsql:sqlite:2.2.0-SNAPSHOT")
+    implementation("com.google.guava:guava:29.0-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
+
+    implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.9.2")
 }
@@ -62,7 +61,7 @@ version = "1.0-SNAPSHOT"
 description = "TuxCore"
 val artifactName = "tuxcore"
 if (hasProperty("buildNumber")) {
-    version = "1.0-"+properties.get("buildNumber")+"-SNAPSHOT"
+    version = "1.0-" + properties.get("buildNumber") + "-SNAPSHOT"
 }
 publishing {
     publications {
@@ -102,7 +101,7 @@ tasks.javadoc {
 }
 tasks {
     "jar"{
-        dependsOn(project.tasks.getByName("pdm"));
+        dependsOn(project.tasks.getByPath("shadowJar"))
     }
 }
 tasks.processResources {

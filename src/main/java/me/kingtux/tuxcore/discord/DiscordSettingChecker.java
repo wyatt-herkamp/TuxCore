@@ -7,6 +7,11 @@ public class DiscordSettingChecker implements SettingChecker {
 
     @Override
     public boolean isValid(String value) {
-        return DiscordUtils.isValidLong(value);
+        try {
+            Long.valueOf(value.replace(" ",""));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }

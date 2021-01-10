@@ -17,11 +17,17 @@ public class SettingManager {
     }
 
     public @NotNull Optional<Setting> getSetting(Settings settings) {
-        return settingDao.fetchFirst("key", settings);
+        return settingDao.fetchFirst("key", settings.name());
     }
 
     public void setSetting(Setting setting) {
-        settingDao.updateOrCreate(setting);
+        System.out.println(setting.toString());
+        if (getSetting(setting.getSettingKey()).isEmpty()) {
+            settingDao.create(setting);
+
+        } else {
+            settingDao.updateOrCreate(setting);
+        }
     }
 
 }

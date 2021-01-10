@@ -29,8 +29,11 @@ public class SettingCommand {
     }
 
     @JDAPermission(Permission.ADMINISTRATOR)
-    @SubCommand(format = "{SETTING} {VALUE}")
-    public void subCommand(User user, TextChannel textChannel, @CommandArgument("setting") String setting, @CommandArgument("value") String value) {
+    @SubCommand(format = "{setting} *")
+    public void settingCommand(User user, TextChannel textChannel, @CommandArgument("setting") String setting, @CommandArgument("*") String value) {
+
+        textChannel.sendMessage(setting + " = " + value).queue();
+        value = value.substring(1);
         Settings settings = Settings.valueOf(setting.toUpperCase());
         if (!settings.getSettingChecker().isValid(value)) {
             if (settings.getSettingChecker() instanceof DiscordSettingChecker) {

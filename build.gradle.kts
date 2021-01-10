@@ -52,7 +52,7 @@ dependencies {
     pdm("org.slf4j:slf4j-log4j12:1.7.5")
     pdm("log4j:apache-log4j-extras:1.2.17")
     pdm("com.jcabi:jcabi-log:0.17.3")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.9.2")
 }
 

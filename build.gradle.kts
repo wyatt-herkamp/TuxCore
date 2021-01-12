@@ -53,7 +53,7 @@ dependencies {
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.9.2")
+    compileOnly("me.clip:placeholderapi:2.10.9")
 }
 
 group = "me.kingtux"

@@ -52,7 +52,7 @@ dependencies {
     implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.10.9")
 }
 

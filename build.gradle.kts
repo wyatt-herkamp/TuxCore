@@ -42,7 +42,7 @@ repositories {
 
 dependencies {
     implementation("me.kingtux:tuxorm:1.5-SNAPSHOT")
-    implementation("net.dv8tion:JDA:4.2.0_230")
+    implementation("net.dv8tion:JDA:4.2.0_236")
     implementation("dev.nitrocommand:core:1.0-SNAPSHOT")
     implementation("dev.nitrocommand:jda4:1.0-SNAPSHOT")
     implementation("dev.nitrocommand:bukkit:1.0-SNAPSHOT")

@@ -48,7 +48,7 @@ dependencies {
     implementation("dev.nitrocommand:bukkit:1.0-SNAPSHOT")
     implementation("me.kingtux:tuxjsql:2.2.0-SNAPSHOT")
     implementation("me.kingtux.tuxjsql:sqlite:2.2.0-SNAPSHOT")
-    implementation("com.google.guava:guava:30.1-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    implementation("com.google.guava:guava:30.1.1-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")

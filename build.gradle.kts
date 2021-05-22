@@ -33,7 +33,7 @@ repositories {
     maven("https://repo.kingtux.me/storages/maven/tuxjsql")
 
 
-    maven("http://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 
 
     maven("https://repo.maven.apache.org/maven2")

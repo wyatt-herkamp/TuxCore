@@ -49,7 +49,7 @@ dependencies {
     implementation("me.kingtux:tuxjsql:2.2.0-SNAPSHOT")
     implementation("me.kingtux.tuxjsql:sqlite:2.2.0-SNAPSHOT")
     implementation("com.google.guava:guava:30.1.1-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
+    implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.31")
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")

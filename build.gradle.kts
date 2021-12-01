@@ -29,6 +29,7 @@ repositories {
 
 
     maven("https://repo.kingtux.me/storages/maven/kingtux-repo")
+    maven("https://repo.kingtux.me/storages/maven/tuxserver")
 
     maven("https://repo.kingtux.me/storages/maven/tuxjsql")
 

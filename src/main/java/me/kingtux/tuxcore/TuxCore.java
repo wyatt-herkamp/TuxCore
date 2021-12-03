@@ -10,7 +10,6 @@ import me.kingtux.tuxjsql.core.TuxJSQL;
 import me.kingtux.tuxjsql.core.TuxJSQLBuilder;
 import me.kingtux.tuxorm.TOConnection;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.impl.SimpleLoggerFactory;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
@@ -25,8 +24,6 @@ public final class TuxCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
-        TuxJSQL.setLogger(new SimpleLoggerFactory().getLogger("Test"));
 
         loadListeners();
         saveDefaultConfig();

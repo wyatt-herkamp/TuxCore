@@ -13,31 +13,23 @@ plugins {
 java {
     withJavadocJar()
     withSourcesJar()
-    targetCompatibility = org.gradle.api.JavaVersion.VERSION_11
-    sourceCompatibility = org.gradle.api.JavaVersion.VERSION_11
+    targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
 
 }
 repositories {
     mavenLocal()
-    maven("https://papermc.io/repo/repository/maven-public/")
-
     maven("https://oss.sonatype.org/content/groups/public/")
-
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://oss.sonatype.org/content/repositories/central")
     maven("https://jcenter.bintray.com")
-
-
     maven("https://repo.kingtux.me/storages/maven/kingtux-repo")
-    maven("https://repo.kingtux.me/storages/maven/tuxserver")
-
     maven("https://repo.kingtux.me/storages/maven/tuxjsql")
-
-
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-
-
+    maven {
+        url = uri("https://repo.purpurmc.org/snapshots")
+    }
     maven("https://repo.maven.apache.org/maven2")
+    mavenCentral()
 
 }
 
@@ -49,11 +41,11 @@ dependencies {
     implementation("dev.nitrocommand:bukkit:1.0-SNAPSHOT")
     implementation("me.kingtux:tuxjsql:2.2.0-SNAPSHOT")
     implementation("me.kingtux.tuxjsql:sqlite:2.2.0-SNAPSHOT")
-    implementation("com.google.guava:guava:30.1.1-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    implementation("com.google.guava:guava:31.0.1-jre")// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation(group = "info.ronjenkins", name = "slf4bukkit", version = "1.1.0")
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    implementation("org.purpurmc.purpur:purpur-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.10.9")
 }
 

@@ -23,12 +23,16 @@ public class ServerCountUpdater implements Runnable {
             GuildChannel channel = tuxCore.getTuxCoreDiscord().getJda().getGuildChannelById(setting.getSettingValue());
             if (channel != null) {
                 channel.getManager().setName(createChannelName()).queue();
+            } else {
+                tuxCore.getLogger().warning("Channel: " + setting.getSettingValue() + " Is missing.");
             }
+        } else {
+            tuxCore.getLogger().warning("Missing Discord Server Count Channel");
         }
     }
 
 
     private String createChannelName() {
-        return "Players Online" + Bukkit.getOnlinePlayers().size();
+        return "Vanilla Count: " + Bukkit.getOnlinePlayers().size();
     }
 }

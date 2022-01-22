@@ -43,7 +43,7 @@ public class ChatListener implements Listener {
                 message = ChatColor.translateAlternateColorCodes('&', message);
             }
         }
-        String fullMessage = tuxCore.getConfig().getString("chat.format");
+        String fullMessage = tuxCore.getConfig().getString("chat.format","%player_displayname% > {message}");
         fullMessage = fullMessage.replace("{message}", message);
         fullMessage = PlaceholderAPI.setPlaceholders(player, fullMessage);
         String finalFullMessage = fullMessage;

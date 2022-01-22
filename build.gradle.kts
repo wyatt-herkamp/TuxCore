@@ -21,7 +21,6 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://oss.sonatype.org/content/repositories/central")
-    maven("https://jcenter.bintray.com")
     maven("https://repo.kingtux.me/storages/maven/kingtux-repo")
     maven("https://repo.kingtux.me/storages/maven/tuxjsql")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
@@ -30,12 +29,14 @@ repositories {
     }
     maven("https://repo.maven.apache.org/maven2")
     mavenCentral()
+    maven("https://m2.dv8tion.net/releases");
+
 
 }
 
 dependencies {
     implementation("me.kingtux:tuxorm:1.5-SNAPSHOT")
-    implementation("net.dv8tion:JDA:4.2.0_247")
+    implementation("net.dv8tion:JDA:4.4.0_350")
     implementation("dev.nitrocommand:core:1.0-SNAPSHOT")
     implementation("dev.nitrocommand:jda4:1.0-SNAPSHOT")
     implementation("dev.nitrocommand:bukkit:1.0-SNAPSHOT")

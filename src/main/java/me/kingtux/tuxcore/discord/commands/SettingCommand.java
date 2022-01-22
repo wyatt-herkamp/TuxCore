@@ -33,16 +33,7 @@ public class SettingCommand {
     public void settingCommand(User user, TextChannel textChannel, @CommandArgument("setting") String setting, @CommandArgument("*") String value) {
 
         textChannel.sendMessage(setting + " = " + value).queue();
-        value = value.substring(1);
         Settings settings = Settings.valueOf(setting.toUpperCase());
-        if (!settings.getSettingChecker().isValid(value)) {
-            if (settings.getSettingChecker() instanceof DiscordSettingChecker) {
-                textChannel.sendMessage("The value must be in the format of a mention").queue();
-            } else {
-                textChannel.sendMessage("Please use this format: " + settings.getSettingChecker().getFormat()).queue();
-            }
-            return;
-        }
         Setting settingObject;
         Optional<Setting> setting1 = tuxCore.getSettingManager().getSetting(settings);
         settingObject = setting1.orElse(new Setting(settings, value));

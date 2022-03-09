@@ -22,7 +22,11 @@ public class ServerCountUpdater implements Runnable {
             Setting setting = settingOptional.get();
             GuildChannel channel = tuxCore.getTuxCoreDiscord().getJda().getGuildChannelById(setting.getSettingValue());
             if (channel != null) {
-                channel.getManager().setName(createChannelName()).queue();
+                try {
+                    channel.getManager().setName(createChannelName()).queue();
+                } catch (Exception e) {
+                    tuxCore.getSLF4JLogger().error("Unable to update channel name", e);
+                }
             } else {
                 tuxCore.getLogger().warning("Channel: " + setting.getSettingValue() + " Is missing.");
             }

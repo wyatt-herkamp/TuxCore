@@ -26,9 +26,7 @@ public class TuxCoreDiscord implements EventListener {
     public TuxCoreDiscord(TuxCore tuxCore) throws LoginException {
         this.tuxCore = tuxCore;
         open();
-        runnable = new ServerCountUpdater(tuxCore);
-        //Every 5 minutes update
-        serverCountRunnableID = Bukkit.getScheduler().runTaskTimerAsynchronously(tuxCore, runnable, 0, 6000).getTaskId();
+
     }
 
     public TuxCore getTuxCore() {
@@ -46,6 +44,9 @@ public class TuxCoreDiscord implements EventListener {
 
         commandCore = new JDA4CommandCore(jda, bot.getString("prefix"));
         loadCommands();
+        runnable = new ServerCountUpdater(tuxCore);
+        //Every 5 minutes update
+        serverCountRunnableID = Bukkit.getScheduler().runTaskTimerAsynchronously(tuxCore, runnable, 0, 6000).getTaskId();
     }
 
     private void loadCommands() {
@@ -59,6 +60,8 @@ public class TuxCoreDiscord implements EventListener {
         jda.shutdown();
         jda = null;
         commandCore = null;
+        runnable = null;
+        Bukkit.getScheduler().cancelTask(serverCountRunnableID);
     }
 
     public ServerCountUpdater getRunnable() {

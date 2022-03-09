@@ -20,15 +20,15 @@ public class ServerCountUpdater implements Runnable {
         Optional<Setting> settingOptional = tuxCore.getSettingManager().getSetting(Settings.DISCORD_SERVER_COUNT_CHANNEL);
         if (settingOptional.isPresent()) {
             Setting setting = settingOptional.get();
-            GuildChannel channel = tuxCore.getTuxCoreDiscord().getJda().getGuildChannelById(setting.getSettingValue());
-            if (channel != null) {
-                try {
+            try {
+                GuildChannel channel = tuxCore.getTuxCoreDiscord().getJda().getGuildChannelById(setting.getSettingValue());
+                if (channel != null) {
                     channel.getManager().setName(createChannelName()).queue();
-                } catch (Exception e) {
-                    tuxCore.getSLF4JLogger().error("Unable to update channel name", e);
+                } else {
+                    tuxCore.getLogger().warning("Channel: " + setting.getSettingValue() + " Is missing.");
                 }
-            } else {
-                tuxCore.getLogger().warning("Channel: " + setting.getSettingValue() + " Is missing.");
+            } catch (Exception e) {
+                tuxCore.getSLF4JLogger().error("Unable to update channel name", e);
             }
         } else {
             tuxCore.getLogger().warning("Missing Discord Server Count Channel");

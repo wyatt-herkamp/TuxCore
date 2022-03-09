@@ -24,19 +24,16 @@ public final class TuxCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        loadListeners();
         saveDefaultConfig();
-        loadConnection();
-        loadCommands();
-        loadDiscord();
-        loadSetting();
         loadLang();
-        System.out.println("TOConnection.logger.getClass().getName() = " + TOConnection.logger.getClass().getName());
-        System.out.println("TOConnection.logger.getName() = " + TOConnection.logger.getName());
-        TOConnection.logger.debug("TESt");
-        TOConnection.logger.info("TESt");
-        TOConnection.logger.error("TESt");
+        loadListeners();
+        loadConnection();
+        loadSetting();
+
+        loadCommands();
+
+        loadDiscord();
+
 
     }
 
@@ -52,7 +49,7 @@ public final class TuxCore extends JavaPlugin {
         try {
             tuxCoreDiscord = new TuxCoreDiscord(this);
         } catch (LoginException e) {
-            e.printStackTrace();
+            getSLF4JLogger().error("Unable to open Discord Connection", e);
         }
     }
 
@@ -70,7 +67,7 @@ public final class TuxCore extends JavaPlugin {
             Properties properties = PropertiesUtils.loadPropertiesFromFile(new File(getDataFolder(), "db.properties"));
             commonConnection = new TOConnection(TuxJSQLBuilder.create(properties));
         } catch (Exception e) {
-            e.printStackTrace();
+            getSLF4JLogger().error("Unable to open Database Connection", e);
         }
     }
 
@@ -81,6 +78,7 @@ public final class TuxCore extends JavaPlugin {
     @Override
     public void onDisable() {
         if (commonConnection != null) commonConnection.close();
+        if (getTuxCoreDiscord() != null) getTuxCoreDiscord().close();
     }
 
     private void loadListeners() {

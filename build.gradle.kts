@@ -46,7 +46,7 @@ dependencies {
     implementation(group = "info.ronjenkins", name = "slf4bukkit", version = "1.1.0")
 
     implementation(group = "me.kingtux", name = "enumconfig", version = "1.0")
-    implementation("org.purpurmc.purpur:purpur-api:1.18.1-R0.1-SNAPSHOT")
+    implementation("org.purpurmc.purpur:purpur-api:1.19.1-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.1")
 }
 
